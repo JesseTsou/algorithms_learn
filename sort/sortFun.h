@@ -49,6 +49,22 @@ void insertionSort(T *arr, int n)
     return;
 }
 
-
+/*
+ * 冒泡排序
+ * 时间复杂度：O(n^2)
+ * 每轮遍历，将相邻两相元素进行比较，将较大（或较小）的放置在后面。
+ * 遍历一遍，最后一个值即为最大值（或最小值）。
+ */
+template <typename T>
+void bubbleSort(T *arr, int n)
+{
+    for (int i = 0; i < n; i ++){
+        for (int j = 0; j < n - i; j ++){
+            if (arr[j] > arr[j + 1])
+                swap(arr[j],arr[j + 1]);
+        }
+    }
+    return;
+}
 
 #endif //SORT_SORTFUN_H

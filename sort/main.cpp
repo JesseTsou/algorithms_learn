@@ -5,16 +5,18 @@
 #include "sortFun.h"
 
 int main() {
-    int n = 10000;
-    int *arr = sortTestHelper::generaterandomArray(n, 0, 3);
+    int n = 50000;
+    int *arr = sortTestHelper::generaterandomArray(n, 0, n);
     int *arr2 = sortTestHelper::copyIntArrary(arr,n);
     int *arr3 = sortTestHelper::copyIntArrary(arr,n);
+    int *arr4 = sortTestHelper::copyIntArrary(arr,n);
     //selectionSort(arr,n);
     //sortTestHelper::printArray(arr, n);
 
     sortTestHelper::testSort("selection sort", selectionSort,arr,n);
     sortTestHelper::testSort("insertion sort", insertionSort,arr2,n);
     sortTestHelper::testSort("bubble    sort", bubbleSort,arr3,n);
+    sortTestHelper::testSort("merge     sort", mergeSort,arr4,n);
 /*
  * 不同类型测试
     float b[5] = {4.1,4.2,0.0,3,0.1};

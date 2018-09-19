@@ -67,4 +67,60 @@ void bubbleSort(T *arr, int n)
     return;
 }
 
+/*
+ * 归并排序
+ * 时间复杂度：O(nlogn)
+ * 将要排序的数组，从中间分为两部分，分别进行排序，然后将这两部分进行合并
+ * 使用递归方法
+ * 使用辅助数组对两子数组进行合并操作。
+ */
+template <typename T>
+void __merge(T *arr, int left, int mid, int right)
+{
+    T temp[right - left + 1];
+
+    //辅助数组保存整个要合并的数组
+    for (int i = left; i <= right; i ++){
+        temp[i - left] = arr[i];
+    }
+
+    int i = left, j = mid + 1;//分别对应两部分的头元素
+    for (int k = left; k <= right; k ++){
+        if (i > mid){//i超过边界的情况，前一部分已经合并完成
+            arr[k] = temp[j - left];
+            j ++;
+        }else if (j > right){//j超过边界的情况，后一部分已经合并完成
+            arr[k] = temp[i - left];
+            i ++;
+        }else if (temp[i - left] < temp[j - left]){//较小值放入前方
+            arr[k] = temp[i - left];
+            i ++;
+        }else{
+            arr[k] = temp[j - left];
+            j ++;
+        }
+    }
+    return;
+}
+template <typename T>
+void __mergeSort(T *arr, int left, int right)
+{
+    if (left >= right)
+        return;
+    int mid = (left + right) / 2;
+
+    __mergeSort(arr, left, mid);
+    __mergeSort(arr, mid + 1, right);
+    __merge(arr,left, mid, right);
+
+    return;
+}
+
+template <typename T>
+void mergeSort(T *arr, int n)
+{
+    __mergeSort(arr, 0, n - 1);
+    return;
+}
+
 #endif //SORT_SORTFUN_H

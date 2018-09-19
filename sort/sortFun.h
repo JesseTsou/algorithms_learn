@@ -169,4 +169,52 @@ void quickSort(T *arr, int n)
     __quickSort(arr, 0, n - 1);
     return;
 }
+
+/*
+ * 快速排序
+ * 时间复杂度O(nlogn)
+ * 取一个基准值（一般为第一个），将小于该基准值的放于其之前，大于该基准值的放于之后
+ * 将等于基准点的元素，平均分配到两侧
+ */
+template <typename T>
+int __patition2(T *arr, int l, int r)
+{
+    swap(arr[l],arr[rand()%(r - l + 1) + l]);
+    int v = arr[l];//第一个为基准值
+    int i = l + 1, j = r;
+
+    //[l + 1, i) 小于等于v，(j,r]大于等于v
+    while(1){
+        while(i <= r && arr[i] < v) i ++;
+        while(j >= l + 1 && arr[j] > v) j --;
+        if (i > j)
+            break;
+        swap(arr[i], arr[j]);//此时arr[i] 大于等于v，arr[j]小于等于v，将两者交换
+        i ++;
+        j --;
+    }
+    swap(arr[l],arr[j]);
+    return j;
+}
+
+template <typename T>
+void __quickSort2(T *arr, int l, int r)
+{
+    if (l >= r)
+        return;
+
+    int p = __patition2(arr, l , r);
+    __quickSort2(arr, l, p - 1);
+    __quickSort2(arr, p + 1, r);
+    return;
+}
+
+template <typename T>
+void quickSort2(T *arr, int n)
+{
+    srand(time(NULL));
+    __quickSort2(arr, 0, n - 1);
+    return;
+}
+
 #endif //SORT_SORTFUN_H

@@ -134,6 +134,7 @@ void mergeSort(T *arr, int n)
 template <typename T>
 int __patition(T *arr, int l, int r)
 {
+    swap(arr[l],arr[rand()%(r - l + 1) + l]);
     int v = arr[l];//第一个为基准值
     int  j = l;//[l + 1,j]小于基准值，[j + 1,i]大于基准值
 
@@ -164,6 +165,7 @@ void __quickSort(T *arr, int l, int r)
 template <typename T>
 void quickSort(T *arr, int n)
 {
+    srand(time(NULL));
     __quickSort(arr, 0, n - 1);
     return;
 }

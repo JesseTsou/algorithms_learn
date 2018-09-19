@@ -22,6 +22,7 @@ int main() {
     sortTestHelper::testSort("merge     sort:", mergeSort,arr4,n);
     sortTestHelper::testSort("quick     sort:", quickSort,arr5,n);
     sortTestHelper::testSort("quick     sort2:", quickSort2,arr6,n);
+    sortTestHelper::testSort("quick     sort3:", quickSort3way,arr7,n);
 /*
  * 不同类型测试
     float b[5] = {4.1,4.2,0.0,3,0.1};

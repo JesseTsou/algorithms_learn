@@ -64,4 +64,51 @@ namespace sortTestHelper{
 
 }
 
+/*
+ * 快速排序
+ * 时间复杂度O(nlogn)
+ * 三路快排
+ * 取一个基准值（一般为第一个），将小于该基准值的放于其之前，中间放置等于基准点，大于该基准值的放于之后
+ * 然后对大于与小于两部分，进行如上操作
+ */
+template <typename T>
+void __quickSort3way(T *arr, int l, int r)
+{
+    if (l >= r)
+        return;
+
+    swap(arr[l],arr[rand()%(r - l + 1) + l]);
+    int v = arr[l];//第一个为基准值
+
+    int i = l + 1;//[lt +1, i)等于v
+    int lt = l;//[l + 1,lt]小于v
+    int gt = r + 1;//[gt,r]大于v
+
+    while(i < gt){
+        if (arr[i] > v){
+            swap(arr[i],arr[gt - 1]);
+            gt --;
+        }else if(arr[i] < v){
+            swap(arr[i],arr[lt + 1]);
+            lt ++;
+            i ++;
+        }else{
+            i ++;
+        }
+    }
+
+    swap(arr[l], arr[lt]);
+
+    __quickSort3way(arr, l, lt - 1);
+    __quickSort3way(arr, gt, r);
+    return;
+}
+
+template <typename T>
+void quickSort3way(T *arr, int n)
+{
+    srand(time(NULL));
+    __quickSort3way(arr, 0, n - 1);
+    return;
+}
 #endif //SELECTIONSORT_SORTTESTHELPER_H

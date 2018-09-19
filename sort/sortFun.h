@@ -111,7 +111,8 @@ void __mergeSort(T *arr, int left, int right)
 
     __mergeSort(arr, left, mid);
     __mergeSort(arr, mid + 1, right);
-    __merge(arr,left, mid, right);
+    if (arr[mid] > arr[mid + 1])
+        __merge(arr,left, mid, right);
 
     return;
 }

@@ -5,7 +5,7 @@
 #include "sortFun.h"
 
 int main() {
-    int n = 50000;
+    int n = 100000;
     int *arr = sortTestHelper::generaterandomArray(n, 0, n);
     int *arr2 = sortTestHelper::copyIntArrary(arr,n);
     int *arr3 = sortTestHelper::copyIntArrary(arr,n);

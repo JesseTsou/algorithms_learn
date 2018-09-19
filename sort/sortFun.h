@@ -70,7 +70,7 @@ void bubbleSort(T *arr, int n)
 /*
  * 归并排序
  * 时间复杂度：O(nlogn)
- * 将要排序的数组，从中间分为两部分，分别进行排序，然后将这两部分进行合并
+ * 将要排序的数组，从中间分为两部分，分别进行排序，然后将这两部分进行归并
  * 使用递归方法
  * 使用辅助数组对两子数组进行合并操作。
  */
@@ -124,4 +124,47 @@ void mergeSort(T *arr, int n)
     return;
 }
 
+/*
+ * 快速排序
+ * 时间复杂度O(nlogn)
+ * 取一个基准值（一般为第一个），将小于该基准值的放于其之前，大于该基准值的放于之后
+ * 然后对前面与后面两部分分别进行如上操作
+ */
+
+template <typename T>
+int __patition(T *arr, int l, int r)
+{
+    int v = arr[l];//第一个为基准值
+    int  j = l;//[l + 1,j]小于基准值，[j + 1,i]大于基准值
+
+    //遍历数组，若大于基准值，则i直接后移，若小于基准值，则需要将该元素放置到小于基准值的区间中，与j + 1交换，然后j++即可
+    for (int i = l + 1; i <= r; i ++){
+        if (arr[i] < v)
+        {
+            swap(arr[i],arr[j + 1]);//与第一个大于基准值的交换值
+            j ++;//第一个大于基准值的位置后移一位
+        }
+    }
+    swap(arr[j], arr[l]);//将基准位置l与最后一个小于基准值j进行位置交换，即j以前的均小于基准值，以后的将大于基准值
+    return j;
+}
+
+template <typename T>
+void __quickSort(T *arr, int l, int r)
+{
+    if (l >= r)
+        return;
+
+    int p = __patition(arr, l , r);
+    __quickSort(arr, l, p - 1);
+    __quickSort(arr, p + 1, r);
+    return;
+}
+
+template <typename T>
+void quickSort(T *arr, int n)
+{
+    __quickSort(arr, 0, n - 1);
+    return;
+}
 #endif //SORT_SORTFUN_H

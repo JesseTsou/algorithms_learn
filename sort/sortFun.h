@@ -299,4 +299,43 @@ void heapsort2(T *arr, int n)
     }
 }
 
+
+/*
+ * 堆排序
+ * 原地堆排序
+ * 时间复杂度：O(nlogn)
+ * 在原数组[0,n-1]上使用heapify构建堆
+ * 将第一个元素0与最后一个元素n-1进行交换，即最后一个即最大元素
+ * 但前面n-1个元素的数组就不是个堆了，使用shiftdown进行建堆
+ * 建堆完成后，第一个元素即最大元素，与最后一个元素n-2交换，即n-2即第二大元素
+ * 重复以上过程，即完成排序
+ */
+template <typename T>
+void __shiftDown(T *arr, int n, int k)
+{
+    while(2*k+1 < n){
+        int j = 2*k+1;
+        if (j + 1 < n && arr[j + 1] > arr[j]){
+            j += 1;
+        }
+        if (arr[k] > arr[j])
+            break;
+        swap(arr[j], arr[k]);
+        k = j;
+    }
+    return;
+}
+
+template <typename T>
+void heapsort3(T *arr, int n)
+{
+    for(int i = (n-1)/2; i >= 0; i --){
+        __shiftDown(arr, n, i);
+    }
+
+    for (int i = n - 1; i > 0; i --){
+        swap(arr[0], arr[i]);
+        __shiftDown(arr, i, 0);
+    }
+}
 #endif //SORT_SORTFUN_H

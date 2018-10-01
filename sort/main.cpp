@@ -15,6 +15,7 @@ int main() {
     int *arr7 = sortTestHelper::copyIntArrary(arr,n);
     int *arr8 = sortTestHelper::copyIntArrary(arr,n);
     int *arr9 = sortTestHelper::copyIntArrary(arr,n);
+    int *arr10 = sortTestHelper::copyIntArrary(arr,n);
     //selectionSort(arr,n);
     //sortTestHelper::printArray(arr, n);
 
@@ -27,6 +28,7 @@ int main() {
     sortTestHelper::testSort("quick     sort3:", quickSort3way,arr7,n);
     sortTestHelper::testSort("heap      sort:", heapsort,arr8,n);
     sortTestHelper::testSort("heap      sort2:", heapsort2,arr9,n);
+    sortTestHelper::testSort("heap      sort3:", heapsort3,arr10,n);
 
 /*
  * 不同类型测试

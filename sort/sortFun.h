@@ -266,9 +266,9 @@ void quickSort3way(T *arr, int n)
 }
 
 /*
- * 堆
+ * 堆操作
  * 用数组存储二叉堆
- *
+ * 从索引1开始计数
  */
 template <typename T>
 class MaxHeap
@@ -312,6 +312,17 @@ public:
         count = 0;
         this->capacity = capacity;
     }
+    MaxHeap(T *arr, int n){
+        data = new T[n + 1];
+        capacity = n;
+        count = n;
+        for (int i = 0; i < n; i ++){
+            data[i + 1] = arr[i];
+        }
+        for (int i = n/2; i >= 0; i --){
+            shiftDown(i);
+        }
+    }
     ~MaxHeap(){
         delete []data;
     }
@@ -354,6 +365,11 @@ public:
         shiftDown(1);
         return ret;
     }
+
+    void heapify()
+    {
+
+    }
 };
 
 /*
@@ -368,6 +384,22 @@ void heapsort(T *arr, int n)
     for (int i = 0; i < n; i ++){
         maxheap.insert(arr[i]);
     }
+    for (int i = n - 1; i >= 0; i --){
+        arr[i] = maxheap.extracMax();
+    }
+}
+
+/*
+ * 堆排序
+ * 时间复杂度：O(nlogn)
+ * heapify：在原数组的基础上构建堆：从最后一个非叶子节点（count/2）开始从后往前（直接根节点），
+ * 进行shftdown操作。然后再取出堆元素，即可实现排序。
+ */
+template <typename T>
+void heapsort2(T *arr, int n)
+{
+    MaxHeap<T> maxheap = MaxHeap<T> (arr,n);
+
     for (int i = n - 1; i >= 0; i --){
         arr[i] = maxheap.extracMax();
     }

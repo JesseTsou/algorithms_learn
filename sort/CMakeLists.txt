@@ -3,4 +3,4 @@ project(sort)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(sort main.cpp sortFun.h)
+add_executable(sort main.cpp sortFun.h heap.h)

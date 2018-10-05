@@ -3,6 +3,8 @@
 #include "sortTestHelper.h"
 #include "student.h"
 #include "sortFun.h"
+#include "findFun.h"
+#include "BST.h"
 
 int main() {
     int n = 300000;

@@ -39,14 +39,24 @@ public:
         return count != 0;
     }
 
+    /*
+     * 插入
+     */
     int insert(key k, value v){
         root = insert(root, k, v);
     }
 
+
+    /*
+     * 是否包含
+     */
     bool contain(key k){
         contain(root, k);
     }
 
+    /*
+     * 搜索
+     */
     value *search(key k){
         search(root, k);
     }
@@ -72,6 +82,12 @@ public:
         postOrder(root);
     }
 
+    /*
+     * 释放
+     */
+    void destroy(){
+        destroy(root);
+    }
 private:
     Node *insert(Node *node, key k, value v){
         if (node == NULL){
@@ -134,6 +150,15 @@ private:
             postOrder(node->left);
             postOrder(node->right);
             cout << node->k << endl;
+        }
+    }
+
+    void destroy(Node *node){
+        if (node != NULL){
+            destroy(node->left);
+            destroy(node->right);
+            delete node;
+            count --;
         }
     }
 

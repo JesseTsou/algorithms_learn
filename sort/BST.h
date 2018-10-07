@@ -42,6 +42,11 @@ public:
     int insert(key k, value v){
         root = insert(root, k, v);
     }
+
+    bool contain(key k){
+        contain(root, k);
+
+    }
 private:
     Node *insert(Node *node, key k, value v){
         if (node == NULL){
@@ -57,6 +62,18 @@ private:
             node->left = insert(node->left, k, v);
         }
         return node;
+    }
+
+    bool contain(Node *node, key k){
+        if (node == NULL)
+            return false;
+
+        if (node->k == k)
+            return true;
+        else if (node->k > k)
+            return contain(node->right, k);
+        else
+            return contain(node->left, k);
     }
 
 };

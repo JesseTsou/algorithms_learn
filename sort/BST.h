@@ -19,6 +19,12 @@ class BST {
             this->v = v;
             this->left = this->right = NULL;
         }
+        Node (Node *node){
+            this->k = node->k;
+            this->v = node->v;
+            this->left = node->left;
+            this->right = node->right;
+        }
     };
 
     Node *root;
@@ -109,6 +115,48 @@ public:
     void destroy(){
         destroy(root);
     }
+
+    /*
+     * 查找最小节点
+     */
+    key mininum(){
+        Node* node = mininum(root);
+        return node->k;
+    }
+
+    /*
+     * 删除最小节点
+     */
+    void removeMin(){
+        if (root)
+            root = removeMin(root);
+        return;
+    }
+
+
+    /*
+     * 查找最大节点
+     */
+    key maxnum(){
+        Node* node = maxnum(root);
+        return node->k;
+    }
+
+    /*
+     * 删除最大节点
+     */
+    void removeMax(){
+        if (root)
+            root = removeMax(root);
+        return;
+    }
+
+    void remove(key k){
+        if (root)
+            root = remove(root, k);
+        return;
+    }
+
 private:
     Node *insert(Node *node, key k, value v){
         if (node == NULL){
@@ -180,6 +228,91 @@ private:
             destroy(node->right);
             delete node;
             count --;
+        }
+    }
+
+    Node *mininum(Node *node){
+        if (node->left == NULL)
+            return node;
+
+        return mininum(node->left);
+    }
+
+    /*
+     * 删除最小值节点时，需要判断其是否有右孩子，若存在则需要将其右孩子替换到该节点位置
+     */
+    Node *removeMin(Node *node){
+        if (node->left == NULL){
+            //若不存在右孩子，则rightnode 为NULL
+            Node *rightnode = node->right;
+            delete node;
+            count --;
+            return rightnode;
+        }
+        node->left = removeMin(node->left);
+        return node;
+    }
+
+    Node *maxnum(Node *node){
+        if (node->right == NULL)
+            return node;
+
+        return maxnum(node->right);
+    }
+
+    /*
+     * 删除最大值节点时，需要判断其是否有左孩子，若存在则需要将其左孩子替换到该节点位置
+     */
+    Node *removeMax(Node *node){
+        if (node->right == NULL){
+            //若不存在左孩子，leftnode 为NULL
+            Node *leftnode = node->left;
+            delete node;
+            count --;
+            return leftnode;
+        }
+        node->right = removeMax(node->right);
+        return node;
+    }
+
+    Node *remove(Node *node, key k){
+        if (node == NULL)
+            return NULL;
+        if (k < node-> k){
+            node->left = remove(node->left, k);
+            return node;
+        }else if (k > node->k){
+            node->right = remove(node->right, k);
+            return node;
+        }else{
+            //将右子树移到要删除的节点位置
+            if (node->left == NULL){
+                Node *rightnode = node->right;
+                delete node;
+                count --;
+                return rightnode;
+            }
+            //将左子树移到要删除的节点位置
+            if (node->right == NULL){
+                Node *leftnode = node->left;
+                delete node;
+                count --;
+                return leftnode;
+            }
+            //找到右子树中的最小节点，替换掉要删除的节点
+            if (node->left && node->right){
+                //创建一个新节点，来保存右子树的最小节点，需要new一下，因为下面要将原该节点删除，实现位置的替换
+                Node *minirightnode = new Node(mininum(node->right));
+                count ++;
+
+                minirightnode->right = removeMin(node->right);
+                minirightnode->left = node->left;
+
+                delete node;
+                count --;
+
+                return minirightnode;
+            }
         }
     }
 

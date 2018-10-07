@@ -45,7 +45,10 @@ public:
 
     bool contain(key k){
         contain(root, k);
+    }
 
+    value *search(key k){
+        search(root, k);
     }
 private:
     Node *insert(Node *node, key k, value v){
@@ -74,6 +77,18 @@ private:
             return contain(node->right, k);
         else
             return contain(node->left, k);
+    }
+
+    value *search(Node *node, key k){
+        if (node == NULL)
+            return NULL;
+
+        if (node->k == k)
+            return &(node->v);
+        else if (node->k > k)
+            return search(node->right, k);
+        else
+            return search(node->left, k);
     }
 
 };

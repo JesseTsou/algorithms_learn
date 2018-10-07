@@ -2,6 +2,7 @@
 // Created by Administrator on 2018/10/5.
 //
 #include <iostream>
+#include <queue>
 #ifndef SORT_BST_H
 #define SORT_BST_H
 
@@ -80,6 +81,26 @@ public:
      */
     void postOrder() {
         postOrder(root);
+    }
+
+    /*
+     * 层序遍历
+     */
+    void levelOrder(){
+        std::queue<Node*> q;
+        q.push(root);
+
+        while (!q.empty()){
+            Node *node = q.front();
+            q.pop();
+
+            cout << node->k << endl;
+            if (node->left)
+                q.push(node->left);
+            if (node->right)
+                q.push(node->right);
+        }
+        return;
     }
 
     /*

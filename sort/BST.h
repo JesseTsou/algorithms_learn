@@ -50,6 +50,28 @@ public:
     value *search(key k){
         search(root, k);
     }
+
+    /*
+     * 前序遍历
+     */
+    void preOrder(){
+        preOrder(root);
+    }
+
+    /*
+     * 中序遍历
+     */
+    void inOrder() {
+        inOrder(root);
+    }
+
+    /*
+     * 后序遍历
+     */
+    void postOrder() {
+        postOrder(root);
+    }
+
 private:
     Node *insert(Node *node, key k, value v){
         if (node == NULL){
@@ -89,6 +111,30 @@ private:
             return search(node->right, k);
         else
             return search(node->left, k);
+    }
+
+    void preOrder(Node *node){
+        if (node != NULL){
+            cout << node->k << endl;
+            preOrder(node->left);
+            preOrder(node->right);
+        }
+    }
+
+    void inOrder(Node *node){
+        if (node != NULL){
+            inOrder(node->left);
+            cout << node->k << endl;
+            inOrder(node->right);
+        }
+    }
+
+    void postOrder(Node *node){
+        if (node != NULL){
+            postOrder(node->left);
+            postOrder(node->right);
+            cout << node->k << endl;
+        }
     }
 
 };

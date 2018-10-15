@@ -5,7 +5,9 @@
 #include <queue>
 #ifndef SORT_BST_H
 #define SORT_BST_H
-
+/*
+ * 二叉树
+ */
 template <typename key, typename value>
 class BST {
     struct Node{
@@ -91,6 +93,9 @@ public:
 
     /*
      * 层序遍历
+     * 采用队列的方法
+     * 从根节点开始存入队列，出队时，将其左右孩子入队
+     * 重复以上操作
      */
     void levelOrder(){
         std::queue<Node*> q;

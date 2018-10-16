@@ -22,9 +22,36 @@ public:
         delete[] id;
     }
 
+    /*
+     * 查找
+     */
     int find(int p){
         assert(p >= 0 && p <= count);
         return id[p];
+    }
+
+    /*
+     * 是否连接
+     */
+    bool isConnected(int p, int q){
+        return find(p) == find(q);
+    }
+
+    /*
+     * 并集，将与p相等的所有节点赋值
+     */
+    void unionElements(int p, int q){
+        int pId = find(p);
+        int qId = find(q);
+
+        if (pId == qId)
+            return;
+
+        for (int i = 0; i < count; i ++){
+            if(id[i] == pId)
+                id[i] = qId;
+        }
+        return;
     }
 };
 
